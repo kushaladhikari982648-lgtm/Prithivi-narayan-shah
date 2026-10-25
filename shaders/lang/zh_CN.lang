@@ -1,5 +1,6 @@
 #Profiles
 ############################
+profile.mobile=Mobile (low-end phones)
 profile.no_effects=无效果
 profile.shadowless_low=无阴影-低
 profile.shadowless_medium=无阴影-中

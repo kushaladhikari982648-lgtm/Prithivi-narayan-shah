@@ -1,5 +1,6 @@
 #Profiles
 ############################
+profile.mobile=Mobile (low-end phones)
 profile.no_effects=Inga effekter
 profile.shadowless_low=Låg (skugglös)
 profile.shadowless_medium=Medium (skugglös)

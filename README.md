@@ -1,9 +1,26 @@
-# MakeUp Ultra Fast
-High performance Minecraft shader (Java).
+# MakeUp Ultra Fast — Mobile Edition
+High performance Minecraft shader (Java), tuned to run on low-end phones.
 
-## Version: 9.6
+## Version: 9.7 (Mobile Optimized)
 
 ### This version works in Optifine and Iris 1.5.1 or higher.
+
+## Optimized for low-end devices
+Defaults are now set so the pack is playable on entry-level hardware such as:
+
+* **MediaTek Helio A22** (PowerVR GE8300 GPU) class phones
+* Java Minecraft via PojavLauncher / Zink, or any weak integrated GPU
+
+What changed for mobile:
+
+* **No shadow map pass by default** (biggest single win on tile-based GPUs) — can be re-enabled, starts at lowest resolution (300px / 75 blocks) with fast pixelated shadows
+* **No volumetric clouds** — vanilla clouds instead (no per-pixel raymarching)
+* **No bloom, no volumetric light, no depth of field, no motion blur, no chromatic aberration**
+* **No TAA** — removes the history buffer, jitter and an extra fullscreen pass
+* **Ambient occlusion off**, refraction off, material gloss off, colored shadows off
+* **Water uses cheap flipped-image reflections** instead of screen-space raymarched reflections (SSR)
+* **Fullscreen passes are skipped entirely when their effects are disabled** (`composite1` / `composite2` are only compiled and executed when DoF/Bloom/TAA/Motion Blur are on), saving fill-rate and bandwidth
+* Everything above remains a toggle — pick the new **Mobile** profile or turn effects back on in the shader settings if your device can handle more
 
 ## Main features
 * Optional shadows
@@ -24,6 +41,7 @@ High performance Minecraft shader (Java).
 * Minecraft 1.12.+ - 26.x
 * Nvidia, AMD, Intel
 * Windows and Linux
+* Low-end ARM Android (Helio A22 / PowerVR GE8300) via PojavLauncher
 
 ## You can:
 * You can use the shader without restrictions.

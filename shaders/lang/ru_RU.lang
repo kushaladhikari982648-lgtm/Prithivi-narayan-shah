@@ -1,5 +1,6 @@
 #Profiles
 ############################
+profile.mobile=Mobile (low-end phones)
 profile.no_effects=Без эффектов
 profile.shadowless_low=Низкий (БТ)
 profile.shadowless_medium=Средний (БТ)
