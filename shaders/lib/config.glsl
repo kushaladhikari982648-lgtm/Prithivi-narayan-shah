@@ -4,6 +4,13 @@ Config variables
 Javier Garduño - GNU Lesser General Public License v3.0
 */
 
+// ---- Portability: gl_FogFragCoord ----
+// gl_FogFragCoord is a legacy fixed-function builtin that some shader loaders
+// do not provide (Horizon / Volt-launcher translate GLSL to WGSL and only know
+// gl_FogCoord). Route it through a plain varying of our own so the pack
+// compiles on every loader. Each program that uses it declares the varying.
+#define gl_FogFragCoord muFogCoord
+
 // Useful entities
 #define ENTITY_SMALLGRASS     10031.0  // Normal grass like entities
 #define ENTITY_LOWERGRASS     10175.0  // Lower half only

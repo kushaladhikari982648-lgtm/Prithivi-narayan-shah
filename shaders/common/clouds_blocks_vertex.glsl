@@ -31,6 +31,8 @@ uniform mat4 gbufferProjectionInverse;
 
 // MAIN FUNCTION ------------------
 
+varying float muFogCoord;  // eye-space distance (see gl_FogFragCoord shim in /lib/config.glsl)
+
 void main() {
     #if V_CLOUDS == 0 || defined UNKNOWN_DIM
         texcoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;

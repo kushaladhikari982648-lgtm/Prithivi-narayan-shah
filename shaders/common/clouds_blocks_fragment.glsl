@@ -26,6 +26,8 @@ uniform float blindness;
 
 // Main function ---------
 
+varying float muFogCoord;  // eye-space distance (see gl_FogFragCoord shim in /lib/config.glsl)
+
 void main() {
     #if V_CLOUDS == 0 || defined UNKNOWN_DIM
         vec4 blockColor = texture2D(tex, texcoord) * tintColor;

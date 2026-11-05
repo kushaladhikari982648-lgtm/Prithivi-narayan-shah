@@ -4,14 +4,14 @@ http://blog.simonrodriguez.fr/articles/30-07-2016_implementing_fxaa.html
 
 */
 
-const float quality[12] = float[12] (1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.5f, 2.0f, 2.0f, 2.0f, 2.0f, 4.0f, 8.0f);
+const float quality[12] = float[12] (1.0, 1.0, 1.0, 1.0, 1.0, 1.5, 2.0, 2.0, 2.0, 2.0, 4.0, 8.0);
 
 vec3 fxaa311(vec3 color, int iterations){
   vec3 aa = color;
 
-  float edgeThresholdMin = 0.03125f;
-  float edgeThresholdMax = 0.0625f;
-  float subpixelQuality = 0.75f;
+  float edgeThresholdMin = 0.03125;
+  float edgeThresholdMax = 0.0625;
+  float subpixelQuality = 0.75;
 
   // Luma at the current fragment
   float lumaCenter = luma(color);
@@ -47,8 +47,8 @@ vec3 fxaa311(vec3 color, int iterations){
     float lumaUpCorners = lumaUpRight + lumaUpLeft;
 
     // Compute an estimation of the gradient along the horizontal and vertical axis.
-    float edgeHorizontal = abs(-2.0f * lumaLeft + lumaLeftCorners) + abs(-2.0f * lumaCenter + lumaDownUp ) * 2.0f + abs(-2.0f * lumaRight + lumaRightCorners);
-    float edgeVertical = abs(-2.0f * lumaUp + lumaUpCorners) + abs(-2.0f * lumaCenter + lumaLeftRight) * 2.0f + abs(-2.0f * lumaDown + lumaDownCorners);
+    float edgeHorizontal = abs(-2.0 * lumaLeft + lumaLeftCorners) + abs(-2.0 * lumaCenter + lumaDownUp ) * 2.0 + abs(-2.0 * lumaRight + lumaRightCorners);
+    float edgeVertical = abs(-2.0 * lumaUp + lumaUpCorners) + abs(-2.0 * lumaCenter + lumaLeftRight) * 2.0 + abs(-2.0 * lumaDown + lumaDownCorners);
 
     // Is the local edge horizontal or vertical ?
     bool isHorizontal = (edgeHorizontal >= edgeVertical);
@@ -63,7 +63,7 @@ vec3 fxaa311(vec3 color, int iterations){
     // Which direction is the steepest ?
     bool is1Steepest = abs(gradient1) >= abs(gradient2);
     // Gradient in the corresponding direction, normalized.
-    float gradientScaled = 0.25f*max(abs(gradient1), abs(gradient2));
+    float gradientScaled = 0.25*max(abs(gradient1), abs(gradient2));
 
     // Choose the step size (one pixel) according to the edge direction.
     float stepLength = isHorizontal ? pixelSizeY : pixelSizeX;
@@ -74,17 +74,17 @@ vec3 fxaa311(vec3 color, int iterations){
     if (is1Steepest){
       // Switch the direction
       stepLength = - stepLength;
-      lumaLocalAverage = 0.5f*(luma1 + lumaCenter);
+      lumaLocalAverage = 0.5*(luma1 + lumaCenter);
     } else {
-      lumaLocalAverage = 0.5f*(luma2 + lumaCenter);
+      lumaLocalAverage = 0.5*(luma2 + lumaCenter);
     }
 
     // Shift UV in the correct direction by half a pixel.
     vec2 currentUv = texcoord.xy;
     if (isHorizontal){
-      currentUv.y += stepLength * 0.5f;
+      currentUv.y += stepLength * 0.5;
     } else {
-      currentUv.x += stepLength * 0.5f;
+      currentUv.x += stepLength * 0.5;
     }
 
     // Compute offset (for each iteration step) in the right direction.
@@ -161,7 +161,7 @@ vec3 fxaa311(vec3 color, int iterations){
     float edgeThickness = (distance1 + distance2);
 
     // UV offset: read in the direction of the closest side of the edge.
-    float pixelOffset = - distanceFinal / edgeThickness + 0.5f;
+    float pixelOffset = - distanceFinal / edgeThickness + 0.5;
 
 
     // Is the luma at center smaller than the local average ?
@@ -173,15 +173,15 @@ vec3 fxaa311(vec3 color, int iterations){
     bool correctVariation = ((isDirection1 ? lumaEnd1 : lumaEnd2) < 0.0) != isLumaCenterSmaller;
 
     // If the luma variation is incorrect, do not offset.
-    float finalOffset = correctVariation ? pixelOffset : 0.0f;
+    float finalOffset = correctVariation ? pixelOffset : 0.0;
 
     // Sub-pixel shifting
     // Full weighted average of the luma over the 3x3 neighborhood.
-    float lumaAverage = (1.0f/12.0f) * (2.0f * (lumaDownUp + lumaLeftRight) + lumaLeftCorners + lumaRightCorners);
+    float lumaAverage = (1.0/12.0) * (2.0 * (lumaDownUp + lumaLeftRight) + lumaLeftCorners + lumaRightCorners);
     // Ratio of the delta between the global average and the center luma, over
     // the luma range in the 3x3 neighborhood.
-    float subPixelOffset1 = clamp(abs(lumaAverage - lumaCenter)/lumaRange,0.0f,1.0f);
-    float subPixelOffset2 = (-2.0f * subPixelOffset1 + 3.0f) * subPixelOffset1 * subPixelOffset1;
+    float subPixelOffset1 = clamp(abs(lumaAverage - lumaCenter)/lumaRange,0.0,1.0);
+    float subPixelOffset2 = (-2.0 * subPixelOffset1 + 3.0) * subPixelOffset1 * subPixelOffset1;
     // Compute a sub-pixel offset based on this delta.
     float subPixelOffsetFinal = subPixelOffset2 * subPixelOffset2 * subpixelQuality;
 

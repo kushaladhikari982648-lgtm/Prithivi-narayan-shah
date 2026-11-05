@@ -20,6 +20,8 @@ varying vec2 texcoord;
 
 // MAIN FUNCTION ------------------
 
+varying float muFogCoord;  // eye-space distance (see gl_FogFragCoord shim in /lib/config.glsl)
+
 void main() {
     texcoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
 

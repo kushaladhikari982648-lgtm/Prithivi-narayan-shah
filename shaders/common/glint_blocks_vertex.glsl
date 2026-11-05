@@ -18,6 +18,8 @@ varying float exposure;
 
 // MAIN FUNCTION ------------------
 
+varying float muFogCoord;  // eye-space distance (see gl_FogFragCoord shim in /lib/config.glsl)
+
 void main() {
     #include "/src/basiccoords_vertex.glsl"
     #include "/src/position_vertex.glsl"

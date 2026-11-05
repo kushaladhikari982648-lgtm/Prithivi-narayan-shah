@@ -57,6 +57,8 @@ varying float frogAdjust;
 
 // MAIN FUNCTION ------------------
 
+varying float muFogCoord;  // eye-space distance (see gl_FogFragCoord shim in /lib/config.glsl)
+
 void main() {
     vec2 eyeBrightSmoothFloat = vec2(eyeBrightnessSmooth);
     float visibleSky;

@@ -3,7 +3,23 @@ High performance Minecraft shader (Java), tuned to run on low-end phones.
 
 ## Version: 9.7 (Mobile Optimized)
 
-### This version works in Optifine and Iris 1.5.1 or higher.
+### This version works in Optifine, Iris 1.5.1 or higher, and Horizon-based launchers.
+
+## Runs on Horizon / Volt-launcher too
+The pack is compatible with [Volt-launcher](https://github.com/entitybrian69-bit/Volt-launcher)
+(Horizon, the Rust/Vulkan engine for Minecraft Java), which loads Iris/OptiFine-format
+packs through its own GLSL-to-WGSL translator:
+
+* The legacy `gl_FogFragCoord` builtin (which Horizon's translator doesn't provide) is
+  routed through a plain `muFogCoord` varying — same GLSL 1.20 semantics, works on
+  every loader
+* FXAA uses only portable GLSL literals, and all line endings are normalized to LF
+* Install: put the zip (or the extracted folder) into `shaderpacks/` beside
+  `options.txt`, then pick it in Options > Horizon Settings > Shader Packs
+
+Effects Horizon doesn't implement yet (e.g. pack-provided cloud/noise textures) fall
+back gracefully; with the mobile defaults everything the pack draws is supported.
+
 
 ## Optimized for low-end devices
 Defaults are now set so the pack is playable on entry-level hardware such as:
@@ -42,6 +58,7 @@ What changed for mobile:
 * Nvidia, AMD, Intel
 * Windows and Linux
 * Low-end ARM Android (Helio A22 / PowerVR GE8300) via PojavLauncher
+* Horizon / Volt-launcher (Rust + Vulkan engine, Iris/OptiFine pack loader)
 
 ## You can:
 * You can use the shader without restrictions.

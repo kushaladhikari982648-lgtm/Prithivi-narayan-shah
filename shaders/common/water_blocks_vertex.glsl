@@ -53,6 +53,7 @@ uniform mat4 gbufferProjectionInverse;
 
 /* Ins / Outs */
 
+varying float muFogCoord;  // eye-space distance (see gl_FogFragCoord shim in /lib/config.glsl)
 varying vec2 texcoord;
 varying vec2 lmcoord;
 varying vec4 tintColor;
